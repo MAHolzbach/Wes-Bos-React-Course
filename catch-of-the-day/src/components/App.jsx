@@ -40,6 +40,14 @@ class App extends React.Component {
     });
   };
 
+  updateFish = (key, updatedFish) => {
+    const fishes = { ...this.state.fishes };
+    fishes[key] = updatedFish;
+    this.setState({
+      fishes: fishes
+    });
+  };
+
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
@@ -87,7 +95,12 @@ class App extends React.Component {
           order={this.state.order}
           params={this.props.params}
         />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+        <Inventory
+          addFish={this.addFish}
+          loadSamples={this.loadSamples}
+          fishes={this.state.fishes}
+          updateFish={this.updateFish}
+        />
       </div>
     );
   }
