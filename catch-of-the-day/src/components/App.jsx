@@ -48,6 +48,22 @@ class App extends React.Component {
     });
   };
 
+  removeFish = key => {
+    const fishes = { ...this.state.fishes };
+    fishes[key] = null;
+    this.setState({
+      fishes
+    });
+  };
+
+  removeFromOrder = key => {
+    const order = { ...this.state.order };
+    delete order[key];
+    this.setState({
+      order: order
+    });
+  };
+
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
@@ -84,6 +100,7 @@ class App extends React.Component {
               <Fish
                 key={key}
                 index={key}
+                order={this.state.order}
                 details={this.state.fishes[key]}
                 addToOrder={this.addToOrder}
               />
@@ -94,12 +111,14 @@ class App extends React.Component {
           fishes={this.state.fishes}
           order={this.state.order}
           params={this.props.params}
+          removeFromOrder={this.removeFromOrder}
         />
         <Inventory
           addFish={this.addFish}
           loadSamples={this.loadSamples}
           fishes={this.state.fishes}
           updateFish={this.updateFish}
+          removeFish={this.removeFish}
         />
       </div>
     );
